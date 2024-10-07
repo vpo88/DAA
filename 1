@@ -1,0 +1,33 @@
+def recursive_fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return recursive_fibonacci(n - 1) + recursive_fibonacci(n - 2)
+
+def non_recursive_fibonacci(n):
+    if n == 0:
+        print(0)
+        return
+    elif n == 1:
+        print(0)
+        print(1)
+        return
+    
+    first = 0
+    second = 1
+    print(first)
+    print(second)
+    for _ in range(2, n):
+        third = first + second
+        first = second
+        second = third
+        print(third)
+
+if __name__ == "__main__":
+    n = 10
+    print("Fibonacci numbers using recursion:")
+    for i in range(n):
+        print(recursive_fibonacci(i))
+    
+    print("\nFibonacci numbers using non-recursive approach:")
+    non_recursive_fibonacci(n)
