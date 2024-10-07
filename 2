@@ -1,0 +1,49 @@
+import heapq
+ 
+class Node:
+    def __init__(self, freq, symbol, left=None, right=None):
+        self.freq = freq          
+        self.symbol = symbol      
+        self.left = left          
+        self.right = right         
+        self.huff = ''            
+ 
+    def __lt__(self, nxt):
+        return self.freq < nxt.freq
+  
+    def print_nodes(self, val=''):
+        new_val = val + str(self.huff)
+      
+        if self.left:
+            self.left.print_nodes(new_val)
+        
+        if self.right:
+            self.right.print_nodes(new_val)
+        
+        if not self.left and not self.right:
+            print(f"{self.symbol} -> {new_val}")
+ 
+if __name__ == "__main__":
+    chars = ['a', 'b', 'c', 'd', 'e', 'f']
+    freq = [5, 9, 12, 13, 16, 45]
+ 
+    nodes = []
+ 
+    for i in range(len(chars)):
+        heapq.heappush(nodes, Node(freq[i], chars[i]))
+   
+    while len(nodes) > 1:
+        
+        left = heapq.heappop(nodes)
+        right = heapq.heappop(nodes)
+        
+        left.huff = '0'
+        right.huff = '1'
+        
+        new_node = Node(left.freq + right.freq, left.symbol + right.symbol, left, right)
+ 
+        heapq.heappush(nodes, new_node)
+    
+    root_node = nodes[0]
+    
+    root_node.print_nodes()
